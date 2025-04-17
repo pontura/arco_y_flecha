@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,10 +10,52 @@ public class EnemiesManager : MonoBehaviour
 
     [SerializeField] Camera mainCamera;   // Asigna la cámara principal (o usa Camera.main)
     public float rayDistance = 100f;
+    float timer;
 
     public void Init()
     {
         enemies = container.GetComponentsInChildren<Enemy>();
+        foreach (Enemy enemy in enemies) 
+            enemy.Init();
+    }
+    public void OnUpdate()
+    {
+        timer += Time.deltaTime;
+        if(timer>2)
+        {
+            SetEnemyOn();
+            timer = 0;
+        }
+    }
+    void SetEnemyOn()
+    {
+        Enemy e = GetHidden();
+        print(e);
+        if (e == null) return;
+        print(e.state);
+        e.Show(5);
+    }
+    int vLoopNum = 0;
+    Enemy GetHidden()
+    {
+        vLoopNum = 0;
+        return GetHiddenLoop();
+    }
+    Enemy GetHiddenLoop()
+    {
+        Enemy e = GetRandom();
+        if (e.state == Enemy.states.hidden)
+            return e;
+        else
+        {
+            vLoopNum++;
+            if (vLoopNum > 10) return null;
+            else return GetHiddenLoop();
+        }
+    }
+    Enemy GetRandom()
+    {
+        return enemies[Random.Range(0, enemies.Length)];
     }
     public void CheckHit(Vector2 pos)
     {

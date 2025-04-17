@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public states state;
+    public enum states
+    {
+        hidden,
+        vulnerable        
+    }
+    [SerializeField] Animator anim;
     [SerializeField] MeshRenderer mr;
     [SerializeField] Material notAvailable_mat;
     [SerializeField] Material available_mat;
@@ -9,18 +16,25 @@ public class Enemy : MonoBehaviour
 
     public void Init()
     {
+        anim = GetComponent<Animator>();
+        Hide();
     }
     public bool IsVulnerable()
     {
         return vulnerable;
     }
-    public void Show()
+    public void Show(float duration)
     {
+        state = states.vulnerable;
         SetVulnerable(true);
+        anim.SetBool("show", true);
+        Invoke("Hide", duration);
     }
-    public void Hide()
+    void Hide()
     {
+        state = states.hidden;
         SetVulnerable(false);
+        anim.SetBool("show", false);
     }
     public void Die()
     {

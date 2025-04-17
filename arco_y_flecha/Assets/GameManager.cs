@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     {
         enemiesManager.Init();
     }
+    private void Update()
+    {
+        enemiesManager.OnUpdate();
+    }
     public void OnHit(Vector2 pos)
     {
         enemiesManager.CheckHit(pos);

@@ -265,6 +265,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5111716456550298826, guid: 8beec30116c2e60458fdb76a04ad9b8a, type: 3}
   m_PrefabInstance: {fileID: 392008035040714450}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &175628132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175628133}
+  m_Layer: 0
+  m_Name: fx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175628133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175628132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1769800543}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,6 +1571,7 @@ GameObject:
   - component: {fileID: 1769800546}
   - component: {fileID: 1769800545}
   - component: {fileID: 1769800544}
+  - component: {fileID: 1769800547}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1562,6 +1594,7 @@ Transform:
   m_Children:
   - {fileID: 12363937}
   - {fileID: 1711026257}
+  - {fileID: 175628133}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1769800544
@@ -1606,6 +1639,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManager: {fileID: 1109424218}
+--- !u!114 &1769800547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769800542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a0c74d3cbc4df4aab2f08eea477fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p: {fileID: 2221785395798915441, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+  container: {fileID: 175628133}
 --- !u!4 &2090029177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5111716456550298826, guid: 8beec30116c2e60458fdb76a04ad9b8a, type: 3}
@@ -1725,6 +1772,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8beec30116c2e60458fdb76a04ad9b8a, type: 3}
+--- !u!1001 &2278767181296773797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2221785395798915441, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_Name
+      value: CFX4 Sparks Explosion Bigger (Yellow) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501165811192151548, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c2e9668c3455ff40801585713dd7ac6, type: 3}
 --- !u!1001 &5434213814890175458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1937,3 +2041,4 @@ SceneRoots:
   - {fileID: 1769800543}
   - {fileID: 1109424216}
   - {fileID: 1043448181}
+  - {fileID: 2278767181296773797}

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class EnemiesManager : MonoBehaviour
@@ -13,9 +14,11 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] Camera mainCamera;   // Asigna la cámara principal (o usa Camera.main)
     public float rayDistance = 100f;
     float timer;
+    float delay;
 
     public void Init()
     {
+        delay = 2;
         enemies = container.GetComponentsInChildren<Enemy>();
         foreach (Enemy enemy in enemies)
         {
@@ -26,8 +29,9 @@ public class EnemiesManager : MonoBehaviour
     public void OnUpdate()
     {
         timer += Time.deltaTime;
-        if(timer>2)
+        if(timer> delay)
         {
+            delay = Random.Range(0.5f, 3f);
             SetEnemyOn();
             timer = 0;
         }
@@ -37,7 +41,9 @@ public class EnemiesManager : MonoBehaviour
     {
         Enemy e = GetHidden();
         if (e == null) return;
-        e.Show(5);
+
+        float duration = Random.Range(2f, 5.1f);
+        e.Show(duration);
     }
     int vLoopNum = 0;
     Enemy GetHidden()
@@ -65,6 +71,8 @@ public class EnemiesManager : MonoBehaviour
     {
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(pos);
 
+        Events.AddParticle("shoot", mouseWorldPos);
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, Vector2.zero);
 
         foreach (RaycastHit2D hit in hits)
@@ -73,7 +81,10 @@ public class EnemiesManager : MonoBehaviour
             {
                 Enemy e = hit.transform.GetComponent<Enemy>();
                 if (e != null)
+                {
                     e.Kill();
+                    return;
+                }
             }
         }
     }

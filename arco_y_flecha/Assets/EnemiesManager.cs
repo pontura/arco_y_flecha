@@ -71,7 +71,9 @@ public class EnemiesManager : MonoBehaviour
         {
             if (hit.collider != null && hit.collider.transform.IsChildOf(container))
             {
-                Debug.Log("Le diste a: " + hit.collider.name);
+                Enemy e = hit.transform.GetComponent<Enemy>();
+                if (e != null)
+                    e.Kill();
             }
         }
     }

@@ -30,8 +30,16 @@ public class EnemyBar : ProgressBar
             if (!isOn)
                 InitProgress();
         }
-        else if (isOn)
-            SetOff();
+        else if (e.state == Enemy.states.hidden)
+        {
+            if (isOn)
+                SetOff();
+        }
+        else if (e.state == Enemy.states.killed)
+        {
+            if (isOn)
+                Killed();
+        }
 
         if (isOn)
         {
@@ -39,9 +47,15 @@ public class EnemyBar : ProgressBar
             SetValue(timer/duration);
             if (duration < timer)
                 Done();
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint(e.transform.position);
+            transform.position = screenPoint;
         }
+    }
+    void Killed()
+    {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(e.transform.position);
-        transform.position = screenPoint;
+        Events.AddScore((int)((duration*10)- (timer*10)), screenPoint);
+        SetOff();
     }
     void Done()
     {

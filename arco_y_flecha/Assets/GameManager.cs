@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     EnemiesManager enemiesManager;
+    [SerializeField] UIManager UIManager;
 
     void Start()
     {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     }
     void Init()
     {
+        UIManager.Init();
         enemiesManager.Init();
     }
     private void Update()

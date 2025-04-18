@@ -1,16 +1,13 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    ScoreUI scoreUI;
 
-    // Update is called once per frame
-    void Update()
+    public void Init()
     {
-        
+        scoreUI = GetComponent<ScoreUI>();
+        scoreUI.Init();
     }
 }

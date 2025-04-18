@@ -6,7 +6,8 @@ public class Enemy : MonoBehaviour
     public enum states
     {
         hidden,
-        vulnerable        
+        vulnerable,
+        killed
     }
     [SerializeField] Animator anim;
     [SerializeField] MeshRenderer mr;
@@ -26,11 +27,12 @@ public class Enemy : MonoBehaviour
     }
     public void Show(float duration)
     {
+        CancelInvoke();
         this.duration = duration;
         state = states.vulnerable;
         SetVulnerable(true);
         anim.SetBool("show", true);
-        Invoke("Hide", duration);
+        Invoke("Shot", duration);
     }
     void Hide()
     {
@@ -38,9 +40,19 @@ public class Enemy : MonoBehaviour
         SetVulnerable(false);
         anim.SetBool("show", false);
     }
-    public void Die()
+    public void Shot()
     {
+        Events.AddScore(-100, transform.position); 
+        Hide();
+    }
+    public void Kill()
+    {
+        print("KILL");
+        CancelInvoke();
+        anim.SetTrigger("killed");
+        state = states.killed;
         SetVulnerable(false);
+        Invoke("Respawn", 3);
     }
     public void SetVulnerable(bool vulnerable)
     {
@@ -49,5 +61,12 @@ public class Enemy : MonoBehaviour
             mr.material = available_mat;
         else
             mr.material = notAvailable_mat;
+    }
+    void Respawn()
+    {
+        CancelInvoke();
+        anim.SetBool("show", false);
+        state = states.hidden;
+        SetVulnerable(false);
     }
 }

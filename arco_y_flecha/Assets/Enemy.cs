@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Material notAvailable_mat;
     [SerializeField] Material available_mat;
     bool vulnerable;
+    public float duration;
 
     public void Init()
     {
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     }
     public void Show(float duration)
     {
+        this.duration = duration;
         state = states.vulnerable;
         SetVulnerable(true);
         anim.SetBool("show", true);

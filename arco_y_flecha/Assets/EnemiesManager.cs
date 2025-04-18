@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,6 +8,7 @@ public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] Enemy[] enemies;
     [SerializeField] Transform container;
+    [SerializeField] EnemiesBars enemiesBars;
 
     [SerializeField] Camera mainCamera;   // Asigna la cámara principal (o usa Camera.main)
     public float rayDistance = 100f;
@@ -15,8 +17,11 @@ public class EnemiesManager : MonoBehaviour
     public void Init()
     {
         enemies = container.GetComponentsInChildren<Enemy>();
-        foreach (Enemy enemy in enemies) 
+        foreach (Enemy enemy in enemies)
+        {
             enemy.Init();
+            enemiesBars.Add(enemy);
+        }
     }
     public void OnUpdate()
     {
@@ -26,6 +31,7 @@ public class EnemiesManager : MonoBehaviour
             SetEnemyOn();
             timer = 0;
         }
+        enemiesBars.OnUpdate();
     }
     void SetEnemyOn()
     {

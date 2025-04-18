@@ -36,9 +36,7 @@ public class EnemiesManager : MonoBehaviour
     void SetEnemyOn()
     {
         Enemy e = GetHidden();
-        print(e);
         if (e == null) return;
-        print(e.state);
         e.Show(5);
     }
     int vLoopNum = 0;

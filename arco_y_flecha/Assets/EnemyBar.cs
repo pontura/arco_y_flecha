@@ -5,7 +5,6 @@ public class EnemyBar : ProgressBar
 {
     [SerializeField] GameObject all;
     Enemy e;
-    Color colorOFf = new Color(0, 0, 0, 0);
     float duration;
     bool isOn;
     float timer;
@@ -16,7 +15,6 @@ public class EnemyBar : ProgressBar
         timer = 0;
         isOn = true;
         this.duration = e.duration;
-        SetColor(Color.white);
     }
     public void SetOff()
     {
@@ -27,8 +25,14 @@ public class EnemyBar : ProgressBar
     {
         if (e == null) return;
 
-        if (e.state == Enemy.states.vulnerable && !isOn)
-            InitProgress();
+        if (e.state == Enemy.states.vulnerable)
+        {
+            if (!isOn)
+                InitProgress();
+        }
+        else if (isOn)
+            SetOff();
+
         if (isOn)
         {
             timer += Time.deltaTime;

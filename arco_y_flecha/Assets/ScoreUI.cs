@@ -35,6 +35,6 @@ public class ScoreUI : MonoBehaviour
     }
     void SetScore()
     {
-        field.text = score.ToString();
+        field.text = YaguarLib.Xtras.Utils.FormatNumbers(score);
     }
 }

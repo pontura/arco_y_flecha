@@ -31,14 +31,15 @@ public class Enemy : MonoBehaviour
         this.duration = duration;
         state = states.vulnerable;
         SetVulnerable(true);
-        anim.SetBool("show", true);
+        anim.Play("on");
         Invoke("Shot", duration);
     }
     void Hide()
     {
+        CancelInvoke();
         state = states.hidden;
         SetVulnerable(false);
-        anim.SetBool("show", false);
+        anim.Play("invulnerable");
     }
     public void Shot()
     {
@@ -49,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
         print("KILL");
         CancelInvoke();
-        anim.SetTrigger("killed");
+        anim.Play("killed");
         state = states.killed;
         SetVulnerable(false);
         Invoke("Respawn", 3);
@@ -64,9 +65,6 @@ public class Enemy : MonoBehaviour
     }
     void Respawn()
     {
-        CancelInvoke();
-        anim.SetBool("show", false);
-        state = states.hidden;
-        SetVulnerable(false);
+        Hide();
     }
 }

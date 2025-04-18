@@ -54,7 +54,9 @@ public class EnemyBar : ProgressBar
     void Killed()
     {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(e.transform.position);
-        Events.AddScore((int)((duration*10)- (timer*10)), screenPoint);
+        int score = GameManager.Instance.settings.scoreDefault;
+        score += (int)((duration * 10) - (timer * 10))*2;
+        Events.AddScore(score, screenPoint);
         Events.AddParticle("explotion", e.transform.position);
         SetOff();
     }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public class SettingsData
     {
         public int scoreDefault;
+        public int totalTime;
     }
 
     static GameManager mInstance = null;

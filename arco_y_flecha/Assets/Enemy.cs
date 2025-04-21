@@ -43,7 +43,8 @@ public class Enemy : MonoBehaviour
     }
     public void Shot()
     {
-        Events.AddScore(-100, transform.position); 
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        Events.AddScore(-100, screenPoint); 
         Hide();
     }
     public void Kill()

@@ -28,13 +28,6 @@ public class QuadUtils :MonoBehaviour
 
 
 
-
-
-
-
-
-
-
     // Inversa: busca uv que produce targetPos en el cuadrilátero
     public Vector2 FindUVInQuad(Vector2 targetPos, int maxIterations = 10, float tolerance = 0.0001f)
     {

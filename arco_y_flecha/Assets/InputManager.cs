@@ -1,8 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     GameManager gameManager;
+    public Vector2 pos1; 
+
     void Start()
     {
         gameManager = GetComponent<GameManager>();
@@ -18,8 +21,9 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             gameManager.Space();
     }
-    void OnHit(Vector2 pos)
+    public void OnHit(Vector2 pos)
     {
+        this.pos1 = pos;
         gameManager.OnHit(pos);
     }
 }

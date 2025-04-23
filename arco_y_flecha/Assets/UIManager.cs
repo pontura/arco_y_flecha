@@ -67,9 +67,9 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    public void CalibrateClicked()
+    public void CalibrateClicked(Vector2 pos)
     {
-        calibrate.Set(Input.mousePosition);
+        calibrate.Set(pos);
         calibrate.Next();
     }
     public void DebugPoint(Vector2 pos)

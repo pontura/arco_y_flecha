@@ -5,6 +5,7 @@ using YaguarLib.Audio;
 
 public class GameManager : MonoBehaviour
 {
+    InputManager inputManager;
     public states state;
 
     public enum states
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
     {
+        inputManager = GetComponent<InputManager>();
         if (!mInstance)
             mInstance = this;
         Events.CalibrationDone += CalibrationDone;
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour
         if (state == states.intro)
             InitGame();
         else if (state == states.calibrate)
-            uiManager.CalibrateClicked();
+            uiManager.CalibrateClicked(inputManager.pos1);
         else if (state == states.summary)
             Intro();
     }

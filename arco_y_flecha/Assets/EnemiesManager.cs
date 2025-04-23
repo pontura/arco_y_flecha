@@ -1,3 +1,4 @@
+using Spine;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -15,16 +16,20 @@ public class EnemiesManager : MonoBehaviour
     public float rayDistance = 100f;
     float timer;
     float delay;
+    bool isOn;
 
     public void Init()
     {
-        delay = 2;
         enemies = container.GetComponentsInChildren<Enemy>();
         foreach (Enemy enemy in enemies)
         {
             enemy.Init();
             enemiesBars.Add(enemy);
         }
+    }
+    public void Restart()
+    {
+        delay = 2;
     }
     public void OnUpdate()
     {

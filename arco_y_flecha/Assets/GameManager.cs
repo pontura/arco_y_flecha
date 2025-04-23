@@ -5,6 +5,15 @@ using YaguarLib.Audio;
 
 public class GameManager : MonoBehaviour
 {
+    public states state;
+
+    public enum states
+    {
+        intro,
+        game,
+        calibrate,
+        summary
+    }
     [Serializable]
     public class SettingsData
     {
@@ -14,7 +23,8 @@ public class GameManager : MonoBehaviour
 
     static GameManager mInstance = null;
     EnemiesManager enemiesManager;
-    [SerializeField] UIManager UIManager;
+    [SerializeField] UIManager uiManager;
+    public QuadUtils quadUtils;
     public SettingsData settings;
 
     public static GameManager Instance
@@ -28,6 +38,15 @@ public class GameManager : MonoBehaviour
     {
         if (!mInstance)
             mInstance = this;
+        Events.CalibrationDone += CalibrationDone;
+        Events.TimeOver += TimeOver;
+    }
+
+
+    private void OnDestroy()
+    {
+        Events.CalibrationDone -= CalibrationDone;
+        Events.TimeOver -= TimeOver;
     }
     void Start()
     {
@@ -37,16 +56,9 @@ public class GameManager : MonoBehaviour
     }
     void Init()
     {
-        UIManager.Init();
+        uiManager.Init();
         enemiesManager.Init();
-    }
-    private void Update()
-    {
-        enemiesManager.OnUpdate();
-    }
-    public void OnHit(Vector2 pos)
-    {
-        enemiesManager.CheckHit(pos);
+        Intro();
     }
     void LoadSettings()
     {
@@ -64,4 +76,87 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Settings file not found at " + path);
         }
     }
+    private void Update()
+    {
+        if (state == states.game)
+            enemiesManager.OnUpdate();
+        uiManager.OnUpdate();
+    }
+    Vector2 NormalizedToScreenPos(Vector2 pos)
+    {
+        Vector2 posNormalized = GameManager.Instance.quadUtils.FindUVInQuad(pos);
+
+        posNormalized.x += 1;
+        posNormalized.y += 1;
+
+        posNormalized.x /= 2;
+        posNormalized.y /= 2;
+
+        posNormalized.x *= Screen.width;
+        posNormalized.y *= Screen.height;
+        return posNormalized;
+
+    }
+    public void OnHit(Vector2 _pos)
+    {
+        //-1 to 1:
+        Vector2 pos = NormalizedToScreenPos(_pos);
+
+        if (state == states.game)
+            enemiesManager.CheckHit(pos);
+        else if(state == states.calibrate)
+            uiManager.DebugPoint(pos);
+    }
+    public void Space()
+    {
+        if (state == states.intro)
+            InitGame();
+        else if (state == states.calibrate)
+            uiManager.CalibrateClicked();
+        else if (state == states.summary)
+            Intro();
+    }
+    public void Intro()
+    {
+        state = states.intro;
+        uiManager.SetScreen(state);
+    }
+    public void InitGame()
+    {
+        state = states.game;
+        enemiesManager.Restart();
+        uiManager.SetScreen(states.game);
+    }
+    public void Calibrate()
+    {
+        state = states.calibrate;
+        uiManager.SetScreen(state);
+    }
+    public void Summary()
+    {
+        state = states.summary;
+        uiManager.SetScreen(state);
+    }
+    void CalibrationDone()
+    {
+        Intro();
+    }
+    public void Esc()
+    {
+        if (state == states.calibrate)
+            CalibrationDone();
+        else if (state == states.game)
+            EndGame();
+        else if (state == states.summary)
+            Intro();
+    }
+    private void TimeOver()
+    {
+        Summary();
+    }
+    void EndGame()
+    {
+        Intro();
+    }
+
 }

@@ -8,7 +8,7 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] TMPro.TMP_Text field;
     [SerializeField] ScoreSignal scoreSignal;
     [SerializeField] Transform container;
-    int score = 0;
+    public int score = 0;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class ScoreUI : MonoBehaviour
         s.Init(v, vector);
     }
 
-    public void Init()
+    public void Restart()
     {
         score = 0;
         SetScore();

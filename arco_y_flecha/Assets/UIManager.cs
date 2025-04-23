@@ -1,17 +1,79 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
-    ScoreUI scoreUI;
-    TimerUI timerUI;
+
+    [SerializeField] IntroUI intro;
+    [SerializeField] GameUI game;
+    [SerializeField] CalibrateUI calibrate;
+    [SerializeField] SummaryUI summary;
 
     public void Init()
     {
-        scoreUI = GetComponent<ScoreUI>();
-        timerUI = GetComponent<TimerUI>();  
-
-        scoreUI.Init();
-        timerUI.Init();
+        game.Init();
+        intro.Init();
+        summary.Init();
+        calibrate.Init();
+    }
+    public void OnUpdate()
+    {
+        switch (GameManager.Instance.state)
+        {
+            case GameManager.states.intro:
+                break;
+            case GameManager.states.game:
+                game.OnUpdate();
+                break;
+            case GameManager.states.calibrate:
+                break;
+            case GameManager.states.summary:
+                break;
+            default:
+                break;
+        }
+    }
+    public void SetScreen(GameManager.states state)
+    {
+        switch (state)
+        {
+            case GameManager.states.intro:
+                intro.gameObject.SetActive(true);
+                game.gameObject.SetActive(false);
+                calibrate.gameObject.SetActive(false);
+                summary.gameObject.SetActive(false);
+                break;
+            case GameManager.states.game:
+                intro.gameObject.SetActive(false);
+                game.gameObject.SetActive(true);
+                calibrate.gameObject.SetActive(false);
+                summary.gameObject.SetActive(false);
+                game.Restart();
+                break;
+            case GameManager.states.calibrate:
+                intro.gameObject.SetActive(false);
+                game.gameObject.SetActive(false);
+                calibrate.gameObject.SetActive(true);
+                summary.gameObject.SetActive(false);
+                calibrate.InitCalibrate();
+                break;
+            case GameManager.states.summary:
+                intro.gameObject.SetActive(false);
+                game.gameObject.SetActive(false);
+                calibrate.gameObject.SetActive(false);
+                summary.gameObject.SetActive(true);
+                summary.SetScore(game.GetScore());
+                break;
+            default:
+                break;
+        }
+    }
+    public void CalibrateClicked()
+    {
+        calibrate.Set(Input.mousePosition);
+        calibrate.Next();
+    }
+    public void DebugPoint(Vector2 pos)
+    {
+        print("Pos_ " + pos);
     }
 }

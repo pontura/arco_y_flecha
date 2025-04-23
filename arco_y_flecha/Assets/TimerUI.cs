@@ -6,23 +6,19 @@ public class TimerUI : MonoBehaviour
 {
     [SerializeField] TMPro.TMP_Text field;
     [SerializeField] ProgressBar progressBar;
-    float totalTime;
-    float timer = 0;
-    bool isOn;
+    [SerializeField] float totalTime;
+    [SerializeField] float timer = 0;
 
-    public void Init()
+    public void Restart()
     {
-        isOn = true;
         this.totalTime = GameManager.Instance.settings.totalTime;
         timer = totalTime;
     }
-    public void Update()
+    public void OnUpdate()
     {
-        if (!isOn) return;
         timer -= Time.deltaTime;
         if (timer<=0)
         {
-            isOn = false;
             Events.TimeOver();
             timer = 0;
         }

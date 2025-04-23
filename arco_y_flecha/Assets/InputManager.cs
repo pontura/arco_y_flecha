@@ -11,6 +11,12 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
             OnHit(Input.mousePosition);
+        if (Input.GetKeyDown(KeyCode.Escape))
+            gameManager.Esc();
+        if (Input.GetKeyDown(KeyCode.F1))
+            gameManager.Calibrate();
+        if (Input.GetKeyDown(KeyCode.Space))
+            gameManager.Space();
     }
     void OnHit(Vector2 pos)
     {

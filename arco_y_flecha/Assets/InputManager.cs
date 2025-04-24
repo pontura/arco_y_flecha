@@ -12,8 +12,8 @@ public class InputManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            OnHit(Input.mousePosition);
+        //if (Input.GetMouseButtonDown(0))
+        //    OnHit(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Escape))
             gameManager.Esc();
         if (Input.GetKeyDown(KeyCode.F1))

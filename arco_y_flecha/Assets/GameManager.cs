@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Serializable]
     public class SettingsData
     {
+        public int scoreRunner;
         public int scoreDefault;
         public int totalTime;
     }

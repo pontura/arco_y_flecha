@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int score;
     public states state;
     public enum states
     {
@@ -12,9 +13,26 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator anim;
     bool vulnerable;
     public float duration;
+    public TYPES type;
+    public enum TYPES
+    {
+        HIDDEN,
+        RUNNER
 
+    }
     public void Init()
     {
+        switch (type)
+        {
+            case TYPES.HIDDEN:
+                score = GameManager.Instance.settings.scoreDefault;
+                break;
+            case TYPES.RUNNER:
+                score = GameManager.Instance.settings.scoreRunner;
+                break;
+            default:
+                break;
+        }
         anim = GetComponent<Animator>();
         anim.Play("off");
         Invoke("Hide", Random.Range(0.01f, 3.1f));
@@ -24,7 +42,7 @@ public class Enemy : MonoBehaviour
     {
         return vulnerable;
     }
-    public void Show(float duration)
+    public virtual void Show(float duration)
     {
         CancelInvoke();
         this.duration = duration;
@@ -33,7 +51,7 @@ public class Enemy : MonoBehaviour
         anim.Play("on");
         Invoke("Shot", duration);
     }
-    void Hide()
+    public virtual void Hide()
     {
         CancelInvoke();
         state = states.hidden;
@@ -50,14 +68,14 @@ public class Enemy : MonoBehaviour
         SetVulnerable(false);
         Invoke("Hide", 0.5f);
     }
-    public void Kill()
+    public virtual void Kill()
     {
         print("KILL");
         CancelInvoke();
         anim.Play("killed");
         state = states.killed;
         SetVulnerable(false);
-        Invoke("Respawn", 3);
+        Invoke("Respawn", 1);
     }
     public void SetVulnerable(bool vulnerable)
     {

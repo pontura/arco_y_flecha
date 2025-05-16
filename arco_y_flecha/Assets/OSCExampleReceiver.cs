@@ -34,34 +34,20 @@ public class OSCExampleReceiver : MonoBehaviour
     }
 
     public void Start()
-    {
-        print("Start");
-
+    {  
         for (int i = 0; i < 3; i++)
             data.Add (new ObjectData ());
 
         inputManager = GetComponent<InputManager>();
         print("OSCExampleReceiver");
 
-        receiver.Bind("/" + key + 1 + "x", OnPos1X);
-        receiver.Bind("/" + key + 1 + "y", OnPos1Y);
-
-        receiver.Bind("/" + key + 2 + "x", OnPos2X);
-        receiver.Bind("/" + key + 2 + "y", OnPos2Y);
-
-        receiver.Bind("/" + key + 3 + "x", OnPos3X);
-        receiver.Bind("/" + key + 3 + "y", OnPos3Y);
+        for (int i = 0; i < 3; i++)
+        {
+            int index = i;
+            receiver.Bind("/" + key + (index + 1) + "x", message => OnPosX(data[index], message));
+            receiver.Bind("/" + key + (index + 1) + "y", message => OnPosY(data[index], message));
+        }
     }
-
-    void OnPos1X(OSCMessage message) { OnPosX(data[0], message); }
-    void OnPos1Y(OSCMessage message) { OnPosY(data[0], message); }
-
-    void OnPos2X(OSCMessage message) { OnPosX(data[1], message); }
-    void OnPos2Y(OSCMessage message) { OnPosY(data[1], message); }
-
-    void OnPos3X(OSCMessage message) { OnPosX(data[2], message); }
-    void OnPos3Y(OSCMessage message) { OnPosY(data[2], message); }
-
 
     void OnPosX(ObjectData d,  OSCMessage message)
     {

@@ -10,16 +10,15 @@ public class Enemy : MonoBehaviour
         killed
     }
     [SerializeField] Animator anim;
-    [SerializeField] MeshRenderer mr;
-    [SerializeField] Material notAvailable_mat;
-    [SerializeField] Material available_mat;
     bool vulnerable;
     public float duration;
 
     public void Init()
     {
         anim = GetComponent<Animator>();
-        Hide();
+        anim.Play("off");
+        Invoke("Hide", Random.Range(0.01f, 3.1f));
+        //Hide();
     }
     public bool IsVulnerable()
     {
@@ -44,8 +43,12 @@ public class Enemy : MonoBehaviour
     public void Shot()
     {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        Events.AddScore(-100, screenPoint); 
-        Hide();
+        Events.AddScore(-100, screenPoint);
+
+        anim.Play("off");
+        state = states.hidden;
+        SetVulnerable(false);
+        Invoke("Hide", 0.5f);
     }
     public void Kill()
     {
@@ -59,10 +62,6 @@ public class Enemy : MonoBehaviour
     public void SetVulnerable(bool vulnerable)
     {
         this.vulnerable = vulnerable;
-        if (vulnerable)
-            mr.material = available_mat;
-        else
-            mr.material = notAvailable_mat;
     }
     void Respawn()
     {

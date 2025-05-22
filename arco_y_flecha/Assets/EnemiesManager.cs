@@ -1,15 +1,8 @@
-using Spine;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] Enemy[] enemies;
-    [SerializeField] Transform container;
     [SerializeField] EnemiesBars enemiesBars;
 
     [SerializeField] Camera mainCamera;   // Asigna la cámara principal (o usa Camera.main)
@@ -17,9 +10,37 @@ public class EnemiesManager : MonoBehaviour
     float timer;
     float delay;
     bool isOn;
+    Transform container;
+    [SerializeField] int totalKills;
+    [SerializeField] int kills;
+    [SerializeField] int levelID;
 
-    public void Init()
+    public void Reset()
     {
+        enemiesBars.Reset(); 
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.Reset();
+        }
+        enemies = new Enemy[0];
+    }
+    public void Init(Transform container)
+    {
+        levelID = GameManager.Instance.levelsManager.levelID;
+        kills = 0; 
+        switch (levelID)
+        {
+            case 0:
+                totalKills = GameManager.Instance.settings.level_1_totalKills;
+                break;
+            case 1:
+                totalKills = GameManager.Instance.settings.level_2_totalKills;
+                break;
+            default:
+                totalKills = GameManager.Instance.settings.level_3_totalKills;
+                break;
+        }
+        this.container = container;
         enemies = container.GetComponentsInChildren<Enemy>();
         foreach (Enemy enemy in enemies)
         {
@@ -33,6 +54,7 @@ public class EnemiesManager : MonoBehaviour
     }
     public void OnUpdate()
     {
+        if(enemies.Length == 0) return;
         timer += Time.deltaTime;
         if(timer> delay)
         {
@@ -46,8 +68,24 @@ public class EnemiesManager : MonoBehaviour
     {
         Enemy e = GetHidden();
         if (e == null) return;
-
-        float duration = Random.Range(2f, 5.1f);
+       
+        int from, to;
+        switch (levelID)
+        {
+            case 0:
+                from = GameManager.Instance.settings.level_1_enemy_duration_from;
+                to = GameManager.Instance.settings.level_1_enemy_duration_to;
+                break;
+            case 1:
+                from = GameManager.Instance.settings.level_2_enemy_duration_from;
+                to = GameManager.Instance.settings.level_2_enemy_duration_to;
+                break;
+            default:
+                from = GameManager.Instance.settings.level_3_enemy_duration_from;
+                to = GameManager.Instance.settings.level_3_enemy_duration_to;
+                break;
+        }
+        float duration = Random.Range(from, to);
         e.Show(duration);
     }
     int vLoopNum = 0;
@@ -87,6 +125,11 @@ public class EnemiesManager : MonoBehaviour
                 Enemy e = hit.transform.GetComponent<Enemy>();
                 if (e != null)
                 {
+                    kills++;
+                    if (kills >= totalKills)
+                    {
+                        Events.LevelComplete();
+                    }
                     e.Kill();
                     return;
                 }

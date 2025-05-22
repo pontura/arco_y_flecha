@@ -8,6 +8,12 @@ public class EnemiesBars : MonoBehaviour
     [SerializeField] List<EnemyBar> bars;
     [SerializeField] Transform container;
 
+    public void Reset()
+    {
+        foreach(EnemyBar bar in bars) 
+            Destroy(bar.gameObject);
+        bars.Clear();
+    }
     public void Add(Enemy e)
     {
         EnemyBar pb = Instantiate(bar, container);

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyRun : Enemy
 {
-    float speed = 6;
+    [SerializeField] float initial_x = 13;
+    [SerializeField] float speed = 6;
     bool isOn;
-    float initial_x = 13;
     float _x;
     bool movingLeft;
 
@@ -21,7 +21,20 @@ public class EnemyRun : Enemy
     }
     void StartRun()
     {
-        if(Random.Range(0,10)<5)
+        int levelID = GameManager.Instance.levelsManager.levelID;
+        switch (levelID)
+        {
+            case 0:
+                speed = GameManager.Instance.settings.level_1_enemy_runner_speed;
+                break;
+            case 1:
+                speed = GameManager.Instance.settings.level_2_enemy_runner_speed;
+                break;
+            default:
+                speed = GameManager.Instance.settings.level_3_enemy_runner_speed;
+                break;
+        }
+        if (Random.Range(0,10)<5)
         {
             movingLeft = true;
             _x = initial_x;
@@ -42,7 +55,7 @@ public class EnemyRun : Enemy
     }
     public override void Show(float duration)
     {
-        base.Show(duration);
+        base.Show(0);
         StartRun();
         isOn = true;
     }

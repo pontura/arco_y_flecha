@@ -20,8 +20,14 @@ public class Enemy : MonoBehaviour
         RUNNER
 
     }
+    public void Reset()
+    {
+        if (state == states.vulnerable) 
+            Hide();
+    }
     public void Init()
     {
+        CancelInvoke();
         switch (type)
         {
             case TYPES.HIDDEN:
@@ -49,6 +55,7 @@ public class Enemy : MonoBehaviour
         state = states.vulnerable;
         SetVulnerable(true);
         anim.Play("on");
+        if(duration >0)
         Invoke("Shot", duration);
     }
     public virtual void Hide()

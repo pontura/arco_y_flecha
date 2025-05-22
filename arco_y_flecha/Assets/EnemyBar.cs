@@ -11,6 +11,7 @@ public class EnemyBar : ProgressBar
 
     public void InitProgress()
     {
+        SetValue(0);
         all.SetActive(true);
         timer = 0;
         isOn = true;
@@ -44,9 +45,12 @@ public class EnemyBar : ProgressBar
         if (isOn)
         {
             timer += Time.deltaTime;
-            SetValue(timer/duration);
-            if (duration < timer)
-                Done();
+            if (duration > 0)
+            {
+                SetValue(timer / duration);
+                if (duration < timer)
+                    Done();
+            }
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(e.transform.position);
             transform.position = screenPoint;
         }
@@ -55,7 +59,14 @@ public class EnemyBar : ProgressBar
     {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(e.transform.position);
         int score = e.score;
-        score += (int)((duration * 10) - (timer * 10))*2;
+        if (duration > 0)
+        {
+            score += (int)((duration * 10) - (timer * 10)) * 2;
+        }
+        else
+        {
+            score += (int)((10 * 10) - (timer * 10)) * 2;
+        }
         Events.AddScore(score, screenPoint);
         Events.AddParticle("explotion", e.transform.position);
         SetOff();

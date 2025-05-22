@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 using YaguarLib.Audio;
@@ -18,13 +19,30 @@ public class GameManager : MonoBehaviour
     [Serializable]
     public class SettingsData
     {
+        public int level_1_totalKills;
+        public int level_2_totalKills;
+        public int level_3_totalKills = 1000;
+
         public int scoreRunner;
         public int scoreDefault;
         public int totalTime;
+
+        public int level_1_enemy_duration_from;
+        public int level_1_enemy_duration_to;
+        public int level_1_enemy_runner_speed;
+
+        public int level_2_enemy_duration_from;
+        public int level_2_enemy_duration_to;
+        public int level_2_enemy_runner_speed;
+
+        public int level_3_enemy_duration_from;
+        public int level_3_enemy_duration_to;
+        public int level_3_enemy_runner_speed;
     }
 
     static GameManager mInstance = null;
     EnemiesManager enemiesManager;
+    public LevelsManager levelsManager;
     [SerializeField] UIManager uiManager;
     public QuadUtils quadUtils;
     public SettingsData settings;
@@ -38,18 +56,32 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
     {
+        levelsManager = GetComponent<LevelsManager>();
         inputManager = GetComponent<InputManager>();
         if (!mInstance)
             mInstance = this;
         Events.CalibrationDone += CalibrationDone;
         Events.TimeOver += TimeOver;
+        Events.LevelComplete += LevelComplete;
     }
 
+    private void LevelComplete()
+    {
+        StopAllCoroutines();
+        StartCoroutine(InitLevel());
+    }
+    IEnumerator InitLevel()
+    {
+        enemiesManager.Reset();
+        yield return new WaitForSeconds(1f);
+        levelsManager.Next();
+    }
 
     private void OnDestroy()
     {
         Events.CalibrationDone -= CalibrationDone;
         Events.TimeOver -= TimeOver;
+        Events.LevelComplete -= LevelComplete;
     }
     void Start()
     {
@@ -60,7 +92,7 @@ public class GameManager : MonoBehaviour
     void Init()
     {
         uiManager.Init();
-        enemiesManager.Init();
+        levelsManager.Init(0);
         Intro();
     }
     void LoadSettings()

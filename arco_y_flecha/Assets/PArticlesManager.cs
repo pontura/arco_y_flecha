@@ -23,7 +23,7 @@ public class PArticlesManager : MonoBehaviour
             case "explotion": go = Instantiate(explotion, container); break;
             default: go = Instantiate(shoot, container); break;
         }
-        go.transform.position = pos;    
+        go.transform.localPosition = pos;    
     }
 
 }

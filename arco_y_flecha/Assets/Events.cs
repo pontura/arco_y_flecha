@@ -9,4 +9,5 @@ public static class Events
     public static System.Action TimeOver = delegate { };
     public static System.Action<string, Vector2> AddParticle = delegate { };
     public static System.Action CalibrationDone = delegate { };
+    public static System.Action LevelComplete = delegate { };
 }

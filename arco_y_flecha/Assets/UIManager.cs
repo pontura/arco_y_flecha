@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameUI game;
     [SerializeField] CalibrateUI calibrate;
     [SerializeField] SummaryUI summary;
+    public  LevelPresentation levelPresentation;
 
     public void Init()
     {
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour
         switch (state)
         {
             case GameManager.states.intro:
+                levelPresentation.gameObject.SetActive(false);
                 intro.gameObject.SetActive(true);
                 game.gameObject.SetActive(false);
                 calibrate.gameObject.SetActive(false);

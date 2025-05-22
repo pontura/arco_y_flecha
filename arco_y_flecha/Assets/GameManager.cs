@@ -68,10 +68,15 @@ public class GameManager : MonoBehaviour
     private void LevelComplete()
     {
         StopAllCoroutines();
+        uiManager.levelPresentation.Init(OnInitLevel);
+    }
+    void OnInitLevel()
+    {
         StartCoroutine(InitLevel());
     }
     IEnumerator InitLevel()
     {
+        yield return new WaitForSeconds(1f);
         enemiesManager.Reset();
         yield return new WaitForSeconds(1f);
         levelsManager.Next();
@@ -157,6 +162,10 @@ public class GameManager : MonoBehaviour
         uiManager.SetScreen(state);
     }
     public void InitGame()
+    {
+        uiManager.levelPresentation.Init(OnNext);
+    }
+    void OnNext()
     {
         state = states.game;
         enemiesManager.Restart();

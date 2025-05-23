@@ -6,6 +6,10 @@ public class LevelPresentation : MonoBehaviour
     [SerializeField] TMPro.TMP_Text field;
     System.Action OnNext;
     int level = 1;
+    public void Reset()
+    {
+        level = 1;
+    }
     public void Init(System.Action OnNext)
     {
         this.OnNext = OnNext;

@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
     }
     public void Intro()
     {
+        uiManager.levelPresentation.Reset();
         state = states.intro;
         uiManager.SetScreen(state);
     }

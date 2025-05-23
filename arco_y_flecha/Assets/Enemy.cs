@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     public void Shot()
     {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        Events.AddScore(-100, screenPoint);
+        Events.AddScore(-15, screenPoint);
 
         anim.Play("off");
         state = states.hidden;

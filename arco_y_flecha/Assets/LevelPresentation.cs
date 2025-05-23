@@ -5,7 +5,7 @@ public class LevelPresentation : MonoBehaviour
 {
     [SerializeField] TMPro.TMP_Text field;
     System.Action OnNext;
-
+    int level = 1;
     public void Init(System.Action OnNext)
     {
         this.OnNext = OnNext;
@@ -14,11 +14,12 @@ public class LevelPresentation : MonoBehaviour
     }
     IEnumerator SetOff()
     {
-        int level = GameManager.Instance.levelsManager.levelID+1;
         field.text = "NIVEL " + level;
-        yield return new WaitForSeconds(1);
+        level++;
+        yield return new WaitForSeconds(3);
+        GetComponent<Animation>().Play("off");
         OnNext();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
     }
 }

@@ -50,7 +50,7 @@ public class EnemiesManager : MonoBehaviour
     }
     public void Restart()
     {
-        delay = 2;
+        delay = 4;
     }
     public void OnUpdate()
     {

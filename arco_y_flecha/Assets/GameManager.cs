@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour
     }
     void OnInitLevel()
     {
-        StartCoroutine(InitLevel());
+        enemiesManager.Reset();
+        levelsManager.Next();
+        //StartCoroutine(InitLevel());
     }
     IEnumerator InitLevel()
     {

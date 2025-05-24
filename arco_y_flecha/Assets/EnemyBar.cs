@@ -1,3 +1,4 @@
+using Spine;
 using UnityEngine;
 using YaguarLib.UI;
 
@@ -11,6 +12,7 @@ public class EnemyBar : ProgressBar
 
     public void InitProgress()
     {
+        print("InitProgress");
         SetValue(0);
         all.SetActive(true);
         timer = 0;
@@ -19,6 +21,7 @@ public class EnemyBar : ProgressBar
     }
     public void SetOff()
     {
+        timer = 0;
         isOn = false;
         all.SetActive(false);
     }
@@ -39,7 +42,11 @@ public class EnemyBar : ProgressBar
         else if (e.state == Enemy.states.killed)
         {
             if (isOn)
+            {
+                isOn = false;
                 Killed();
+                return;
+            }
         }
 
         if (isOn)
@@ -67,6 +74,7 @@ public class EnemyBar : ProgressBar
         {
             score += (int)((10 * 10) - (timer * 10)) * 2;
         }
+        print("Killed " + score);
         Events.AddScore(score, screenPoint);
         Events.AddParticle("explotion", e.transform.position);
         SetOff();

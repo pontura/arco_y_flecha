@@ -7,6 +7,11 @@ public class LevelsManager : MonoBehaviour
     [SerializeField] Level[] levels;
     public int levelID;
 
+    public void Reset()
+    {
+        levelID = 0;
+    }
+
     public void Init(int levelID)
     {
         this.levelID = levelID;

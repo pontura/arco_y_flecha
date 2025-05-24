@@ -123,17 +123,19 @@ public class EnemiesManager : MonoBehaviour
             if (hit.collider != null && hit.collider.transform.IsChildOf(container))
             {
                 Enemy e = hit.transform.GetComponent<Enemy>();
-                if (e != null)
+                if (e != null && e.state == Enemy.states.vulnerable)
                 {
                     kills++;
-                    if (kills >= totalKills)
-                    {
-                        Events.LevelComplete();
-                    }
                     e.Kill();
+                    if (kills >= totalKills)
+                        Invoke("DelayedComplete", 0.5f);
                     return;
                 }
             }
         }
+    }
+    void DelayedComplete()
+    {
+        Events.LevelComplete();
     }
 }

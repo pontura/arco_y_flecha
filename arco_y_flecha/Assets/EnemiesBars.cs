@@ -10,12 +10,12 @@ public class EnemiesBars : MonoBehaviour
 
     public void Reset()
     {
-        foreach(EnemyBar bar in bars) 
-            Destroy(bar.gameObject);
+        YaguarLib.Xtras.Utils.RemoveAllChildsIn(container);
         bars.Clear();
     }
     public void Add(Enemy e)
     {
+        print("ADD");
         EnemyBar pb = Instantiate(bar, container);
         bars.Add(pb);
         pb.InitEnemy(e);

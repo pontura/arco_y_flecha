@@ -61,7 +61,6 @@ public class OSCExampleReceiver : MonoBehaviour
     }
     public void CheckPos(ObjectData d)
     {
-        print("CheckPos " + d.pos.x + " : " + d.pos.y);
         if (d.pos.x == 0 || d.pos.y == 0) return;
         if (d.last_pos_timer + filterDuration > Time.time) return;
         //if (d.last_pos == Vector2.zero || Vector2.Distance(d.last_pos, d.pos) > offset)

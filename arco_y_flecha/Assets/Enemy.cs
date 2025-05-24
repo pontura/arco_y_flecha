@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    int scoreResta;
     public int score;
     public states state;
     public enum states
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     }
     public void Init()
     {
+        scoreResta = GameManager.Instance.settings.scoreResta;  
         CancelInvoke();
         switch (type)
         {
@@ -68,7 +70,7 @@ public class Enemy : MonoBehaviour
     public void Shot()
     {
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        Events.AddScore(-15, screenPoint);
+        Events.AddScore(-scoreResta, screenPoint);
 
         anim.Play("off");
         state = states.hidden;

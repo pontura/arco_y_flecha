@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     {
         intro,
         game,
+        game_paused,
         calibrate,
         summary
     }
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         public int level_2_totalKills;
         public int level_3_totalKills = 1000;
 
+        public int scoreResta;
         public int scoreRunner;
         public int scoreDefault;
         public int totalTime;
@@ -68,22 +70,15 @@ public class GameManager : MonoBehaviour
     private void LevelComplete()
     {
         StopAllCoroutines();
+        state = states.game_paused;
         uiManager.levelPresentation.Init(OnInitLevel);
     }
     void OnInitLevel()
     {
         enemiesManager.Reset();
         levelsManager.Next();
-        //StartCoroutine(InitLevel());
+        state = states.game;
     }
-    IEnumerator InitLevel()
-    {
-        yield return new WaitForSeconds(1f);
-        enemiesManager.Reset();
-        yield return new WaitForSeconds(1f);
-        levelsManager.Next();
-    }
-
     private void OnDestroy()
     {
         Events.CalibrationDone -= CalibrationDone;
@@ -99,7 +94,6 @@ public class GameManager : MonoBehaviour
     void Init()
     {
         uiManager.Init();
-        levelsManager.Init(0);
         Intro();
     }
     void LoadSettings()
@@ -166,6 +160,9 @@ public class GameManager : MonoBehaviour
     }
     public void InitGame()
     {
+        levelsManager.Reset();
+        levelsManager.Init(0);
+        state = states.game_paused;
         uiManager.levelPresentation.Init(OnNext);
     }
     void OnNext()
@@ -186,6 +183,7 @@ public class GameManager : MonoBehaviour
     }
     void CalibrationDone()
     {
+        print("CalibrationDone");
         Intro();
     }
     public void Esc()
@@ -199,6 +197,7 @@ public class GameManager : MonoBehaviour
     }
     private void TimeOver()
     {
+        enemiesManager.Reset();
         Summary();
     }
     void EndGame()

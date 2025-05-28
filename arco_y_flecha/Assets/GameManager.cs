@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
         public int level_3_enemy_duration_to;
         public int level_3_enemy_runner_speed;
 
+        public string intro_title;
+        public string intro_1;
+        public string intro_2;
+
         public string level_1;
         public string level_2;
         public string level_3;

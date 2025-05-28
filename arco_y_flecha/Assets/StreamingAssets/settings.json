@@ -19,7 +19,11 @@
 	"level_3_enemy_duration_to": 5,
 	"level_3_enemy_runner_speed": 7,	
 	
-	"level_1": "Sombras en el Bosque de Bambú",
-	"level_2": "Fuego en las dunas",
-	"level_3": "El eco del aguila"
+	"intro_title": "Guardianes del Imperio",
+	"intro_1": "La ruta de la seda une imperios. En el año 150, una caravana imperial parte desde Luoyang con seda, jade y oro enviados por el Emperador Han al Emperador Romano.",
+	"intro_2": "Su ruta… será larga. Sus enemigos… infinitos.",
+	
+	"level_1": "Montañas Qin, Shaanxi, China Occidental",
+	"level_2": "Desierto de Karakum Turkmenistán (Bactria), Asia Central",
+	"level_3": "Rio Orontes, Costa del Mar Mediterraneo Turquia (Canaán), Asia Occidental"
 }

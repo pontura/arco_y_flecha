@@ -5,7 +5,7 @@
 	"scoreResta": 5,
 	
 	"level_1_totalKills": 6,
-	"level_2_totalKills": 8,
+	"level_2_totalKills": 6,
 	
 	"level_1_enemy_duration_from": 4,
 	"level_1_enemy_duration_to": 7,
@@ -17,5 +17,9 @@
 	
 	"level_3_enemy_duration_from": 2,
 	"level_3_enemy_duration_to": 5,
-	"level_3_enemy_runner_speed": 7
+	"level_3_enemy_runner_speed": 7,	
+	
+	"level_1": "Sombras en el Bosque de Bambú",
+	"level_2": "Fuego en las dunas",
+	"level_3": "El eco del aguila"
 }

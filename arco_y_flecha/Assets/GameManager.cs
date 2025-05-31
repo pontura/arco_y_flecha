@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
     }
     void EndGame()
     {
+        enemiesManager.Reset();
         Intro();
     }
 
